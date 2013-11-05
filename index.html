@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tuts+</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+    <style>
+    .tuts { background: #c24e00; }
+    .nettuts { background: #2d6b61; }
+    .psdtuts { background: #af1c00; }
+    .vectortuts { background: #1e468e; }
+    .aetuts { background: #4a3c59; }
+    .phototuts { background: #3798aa; }
+    .cgtuts { background: #723b4a; }
+    .audiotuts { background: #4b7e00; }
+    .webdesigntutsplus { background: #0d533f; }
+    .mobiletuts { background: #dba600; }
+
+    h1 {text-transform: capitalize;}
+    .meta {font-size: 80%; margin-right: 20px;}
+
+    figure.tutorial_image {margin-left: 0; margin-right: 0;}
+    figure.tutorial_image > img,
+    figure.tutorial_image > a > img {width: 100%; height: auto;};
+    </style>
+</head>
+<body>
+    <div data-role="page" id="home">
+        <header data-position="fixed" class="tuts" data-role="header">
+            <h1>
+                <img src="img/TLogo.png" alt="Tuts+"/>
+            </h1>
+        </header>
+        <div data-role="content">
+            <ul data-role="listview">
+                <li>
+                    <a href="#site" data-site="nettuts">
+                        <img src="img/ntLogo.jpg" alt="Nettuts" class="ui-li-icon"/>
+                        Nettuts+
+                    </a>
+                </li>
+                <li>
+                    <a href="#site" data-site="psdtuts">
+                        <img src="img/psdLogo.jpg" alt="Psdtuts" class="ui-li-icon"/>
+                        Psdtuts+
+                    </a>
+                </li>
+                <li>
+                    <a href="#site" data-site="vectortuts">
+                        <img src="img/vectorLogo.jpg" alt="Vectortuts+" class="ui-li-icon"/>
+                        Vectortuts+
+                    </a>
+                </li>
+                <li>
+                    <a href="#site" data-site="mobiletuts">
+                        <img src="img/mobileLogo.png" alt="Mobiletuts+" class="ui-li-icon"/>
+                        Mobiletuts+
+                    </a>
+                </li>
+                <li>
+                    <a href="#site" data-site="aetuts">
+                        <img src="img/aeLogo.jpg" alt="Aetuts+" class="ui-li-icon"/>
+                        Aetuts+
+                    </a>
+                </li>
+                <li>
+                    <a href="#site" data-site="phototuts">
+                        <img src="img/photoLogo.jpg" alt="Phototuts+" class="ui-li-icon"/>
+                        Phototuts+
+                    </a>
+                </li>
+                <li>
+                    <a href="#site" data-site="cgtuts">
+                        <img src="img/cgLogo.jpg" alt="Cgtuts+" class="ui-li-icon"/>
+                        Cgtuts+
+                    </a>
+                </li>
+                <li>
+                    <a href="#site" data-site="audiotuts">
+                        <img src="img/audioLogo.jpg" alt="Audiotuts+" class="ui-li-icon"/>
+                        Audiotuts+
+                    </a>
+                </li>
+                <li>
+                    <a href="#site" data-site="webdesigntutsplus">
+                        <img src="img/wdLogo.jpg" alt="Webdesigntuts+" class="ui-li-icon"/>
+                        Webdesigntuts+
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <footer data-position="fixed" class="tuts" data-role="footer">
+            <h4>www.tutsplus.com</h4>
+        </footer>
+    </div>
+
+    <div data-role="page" id="site">
+        <header data-position="fixed" data-role="header">
+            <a href="#home" data-icon="back" data-rel="back">Back</a>
+            <h1><img src="img/TLogo.png" alt="Tuts+"/></h1>
+            <a href="#" data-icon="refresh" id="refresh" class="ui-btn-right" data-iconpos="notext">Refresh</a>
+        </header>
+        <div data-role="content">
+            <ul data-role="listview">
+
+            </ul>
+        </div>
+
+        <footer data-position="fixed" data-role="footer">
+            <h4> www.tutsplus.com </h4>
+        </footer>
+    </div>
+
+    <div data-role="page" id="article">
+        <header data-position="fixed" data-role="header">
+            <a href="#site" data-icon="back" data-rel="back">Back</a>
+            <h1><img src="img/TLogo.png" alt="Tuts+"/></h1>
+        </header>
+        <div data-role="content">
+        </div>
+
+        <footer data-position="fixed" data-role="footer">
+            <h4> www.tutsplus.com </h4>
+        </footer>
+    </div>
+
+    <div data-role="page" id="dialog">
+        <header data-role="header">
+            <h1>Update</h1>
+        </header>
+        <div data-role="content">
+            <p>There is an update in the schedule available, do you want to load it now?</p>
+            <a href="#" data-role="button" data-inline="true" id="yes">YES</a>
+            <a href="#" data-role="button" data-inline="true" id="no">NO</a>
+        </div>
+    </div>
+</body>
+<script>
+    (function($) {
+        var methods = {
+            initMainPage: function() {
+                var $page = $("#home");
+                var $list = $page.find("ul[data-role='listview']");
+
+                $page.bind("pageshow", function(event, ui) {
+                });
+
+                $list.on("click", "li a", function(e) {
+                    window.localStorage["cur_tuts_site"] = $(this).data("site");
+                });
+            },
+
+            initSitePage: function() {
+                var $page = $("#site");
+                var $refresh = $("#refresh");
+                var $listview = $page.find("[data-role='listview']");
+
+                $page.bind("pagebeforeshow", function(event, ui) {
+                    $listview.html("");
+                });
+
+                $page.bind("pageshow", function(event, ui) {
+                    var site = window.localStorage["cur_tuts_site"] || "nettuts";
+                    if (window.localStorage.getItem(site+"_data") != undefined && window.localStorage.getItem(site+"_data") != null) {
+                        showSessions(site, window.localStorage.getItem(site+"_data"));
+                    } else {
+                        loadSessionAjax();
+                    }
+                });
+
+                $refresh.bind("click", loadSessionAjax);
+
+                $listview.on("click", "li a", function(e) {
+                    window.localStorage["item_id"] = $(this).data("id");
+                });
+            },
+
+            initArticlePage: function() {
+                var $page = $("#article");
+
+                $page.bind("pageshow", function(event, ui) {
+                    showArticle();
+                });
+            },
+
+            initDialogPage: function() {
+                var $dialog = $("#dialog");
+
+                //$dialog.on("pageshow", function(event, ui) {
+                    $("#yes").on("click", function() {
+
+                    });
+                    $("#no").on("click", function() {
+                        $dialog.dialog("close");
+                    });
+                //});
+            },
+
+            initAll: function() {
+                $().initApp("initMainPage");
+                $().initApp("initSitePage");
+                $().initApp("initArticlePage");
+                $().initApp("initDialogPage");
+            }
+        };
+
+        $.fn.initApp = function(method) {
+            if (methods[method]) {
+                return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+            } else if (typeof method === "object" || !method) {
+                return methods.initAll.apply(this, arguments);
+            } else {
+                $.error("Method" + method + "does not exist");
+            }
+        }
+    })(jQuery);
+
+    $(document).ready(function() {
+        $().initApp();
+    });
+
+
+    function loadSessionAjax() {
+        $.mobile.loading("show", {
+            text: "Loading...",
+            textVisible: true,
+            theme: "a",
+            textonly: false,
+            html: ""
+        });
+
+        var site = window.localStorage["cur_tuts_site"] || "nettuts";
+        var url = "http://query.yahooapis.com/v1/public/yql?q=";
+        url += encodeURI("SELECT * FROM feed WHERE url='http://feeds.feedburner.com/" + site + "'");
+        url += "&format=json";
+
+        $("#site").find("[data-role='header'] h1").html(site);
+
+        $.ajax(url, {
+            complete: function(xhr) {
+                var data = JSON.parse(xhr.responseText);
+                var string = JSON.stringify(data.query.results);
+                if (window.localStorage != undefined) {
+                    if (window.localStorage.getItem(site+"_data") != undefined && window.localStorage.getItem(site+"_data") != null) {
+                        if (string == window.localStorage.getItem(site+"_data")) {
+                            $("#dialog").find("[data-role='content'] p").html("Schedule is already updated");
+                            $("#dialog").find("[data-role='content'] a").css("display", "none");
+                            $.mobile.changePage("#dialog", {role: "dialog"});
+                        } else {
+                            $("#dialog").find("[data-role='content'] p").html("There is an update in the schedule available, do you want to load it now?");
+                            $("#dialog").find("[data-role='content'] a").css("display", "inline-block");
+                            $.mobile.changePage("#dialog", {role: "dialog"});
+                        }
+                    } else {
+                        showSessions(site, string);
+                    }
+                } else {
+                    showSessions(site, string);
+                }
+                $.mobile.loading( "hide" );
+            },
+            dataType: 'text',
+            error: function() {
+                $("#dialog").find("[data-role='content'] p").html("Schedule update could not be downloaded");
+                $("#dialog").find("[data-role='content'] a").css("display", "none");
+                $.mobile.changePage("#dialog", {role: "dialog"});
+            }
+        });
+    }
+
+    var isFirstLoad = true;
+    var prevClass = "";
+
+    function showSessions(site, string) {
+        var $header = $("#site").find("[data-role='header']");
+        var $footer = $("#site").find("[data-role='footer']");
+        var $listview = $("#site").find("[data-role='listview']");
+
+        if (window.localStorage != undefined) {
+            window.localStorage.setItem(site+"_data", string);
+        }
+
+        var data = JSON.parse(string);
+
+        if (!data) {
+            console.log("Schedule update could not be downloaded");
+            return;
+        }
+
+        var list = "";
+        for (var i = 0; i < data.item.length; i++) {
+            var item = data.item[i];
+            var title = item.title;
+            var commentsCount = item.comments[1];
+            if (site == "psdtuts") commentsCount = item.comments.content;
+
+            list += '<li><a href="#article" data-id="' + i + '">' + title + '<span class="ui-li-count">' + commentsCount + '</span></a></li>';
+        }
+
+        $header.find("h1").html(site);
+        $header.removeClass(prevClass);
+        $footer.removeClass(prevClass);
+        $header.addClass(site);
+        $footer.addClass(site);
+        prevClass = site;
+
+        $listview.html(list);
+        $listview.listview("refresh");
+    }
+
+    function showArticle() {
+        var site = window.localStorage["cur_tuts_site"] || "nettuts";
+        var data = window.localStorage[site+"_data"];
+        data = JSON.parse(data);console.log(data);
+        var itemId = window.localStorage["item_id"] || 0;
+        itemId = Number(itemId);console.log(itemId);
+
+        var item = data.item[itemId];
+
+        var $page = $("#article");
+        var $header = $page.find("[data-role='header']");
+        var $footer = $page.find("[data-role='footer']");
+        $header.find("h1").html(site);
+        $header.addClass(site);
+        $footer.addClass(site);
+
+        var $content = $page.find("[data-role='content']");
+
+        var title = "<h2>" + item.title + "</h2>";
+        var pubDate = "<span class='meta date'> AT: " + new Date(Date.parse(item.pubDate)).toUTCString() + "</span>";
+        var creator = "<span class='meta creator'> FROM: " + item.creator + "</span>";
+        var description = "<div>" + item.description + "</div>";
+
+        $content.html(title+pubDate+creator+description);
+
+        console.log(item);
+    }
+</script>
+</html>
